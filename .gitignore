@@ -49,3 +49,17 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+# ROS 2 specific ignores
+install/
+log/
+build/
+*.egg-info/
+*.egg
+COLCON_IGNORE
+.pytest_cache/
+__pycache__/
+.coverage
+coverage.xml
+htmlcov/
+.vscode/
