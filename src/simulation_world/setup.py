@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+from glob import glob
 
 package_name = 'simulation_world'
 
@@ -10,10 +11,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + '/worlds', ['worlds/hospital_area.world']),
-        ('share/' + package_name + '/worlds', ['worlds/hosp.world']),
-        ('share/' + package_name + '/launch', ['launch/gazebo_sim.launch.py']),
-        ('share/' + package_name + '/launch', ['launch/gazebo_sim.launch_h.py']),        
+        ('share/' + package_name + '/worlds', glob('worlds/*.world')),
+        ('share/' + package_name + '/launch', glob('launch/*.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
