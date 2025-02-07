@@ -1,0 +1,17 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+    use_sim_time: true
+
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+
+    rwheel_joint_position_controller:
+      type: position_controllers/JointPositionController
+      joint: rwheel_joint
+      pid: {p: 100.0, i: 0.01, d: 10.0}
+
+    lwheel_joint_position_controller:
+      type: position_controllers/JointPositionController
+      joint: lwheel_joint
+      pid: {p: 100.0, i: 0.01, d: 10.0}
