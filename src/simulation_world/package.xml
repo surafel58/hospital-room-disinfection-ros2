@@ -15,4 +15,7 @@
   <export>
     <build_type>ament_python</build_type>
   </export>
+
+  <depend>ros_gz_bridge</depend>
+
 </package>
