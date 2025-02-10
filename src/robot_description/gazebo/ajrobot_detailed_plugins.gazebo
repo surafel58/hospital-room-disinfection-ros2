@@ -21,10 +21,11 @@
     <odometry_frame>odom</odometry_frame>
     <publish_wheel_tf>true</publish_wheel_tf>
     <publish_tf>true</publish_tf>
+    <!-- we disable it if we want other odometry source to publish this topic (localization package) -->
     <publish_odom_tf>true</publish_odom_tf>
     <publish_odom>true</publish_odom>
     <publish_wheel_joint_state>true</publish_wheel_joint_state>
-    <robot_base_frame>base_footprint</robot_base_frame>
+    <robot_base_frame>base_link</robot_base_frame>
     <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
     <odometry_source>1</odometry_source>
     <ros>
