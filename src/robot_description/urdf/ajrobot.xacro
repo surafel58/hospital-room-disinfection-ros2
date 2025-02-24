@@ -7,6 +7,16 @@
 <xacro:include filename="$(find robot_description)/gazebo/ajrobot_detailed_physics.gazebo" />
 <xacro:include filename="$(find robot_description)/gazebo/ajrobot_detailed_plugins.gazebo" />
 
+<!-- Define inertial property macros  -->
+<xacro:macro name="box_inertia" params="m w h d">
+  <inertial>
+    <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+    <mass value="${m}"/>
+    <inertia ixx="${(m/12) * (h*h + d*d)}" ixy="0.0" ixz="0.0" iyy="${(m/12) * (w*w + d*d)}" iyz="0.0" izz="${(m/12) * (w*w + h*h)}"/>
+  </inertial>
+</xacro:macro>
+
+
 <!-- Dummy root link (base_footprint) -->
 <link name="base_footprint" />
 
@@ -38,6 +48,26 @@
   <child link="base_footprint"/>
   <origin xyz="0 0 0" rpy="0 0 0"/>
 </joint>
+
+<link name="imu_link">
+  <visual>
+    <geometry>
+      <!-- Keep small size but move position -->
+      <box size="0.02 0.02 0.02"/>
+    </geometry>
+    <material name="red">
+      <color rgba="1 0 0 1"/>
+    </material>
+  </visual>
+
+  <collision>
+    <geometry>
+      <box size="0.02 0.02 0.02"/>
+    </geometry>
+  </collision>
+
+  <xacro:box_inertia m="0.01" w="0.02" d="0.02" h="0.02"/>
+</link>
 
 <link name="rwheel_1">
   <inertial>
@@ -270,6 +300,14 @@
   </collision>
 </link>
 
+<link name="camera_depth_frame"/>
+
+<joint name="camera_depth_joint" type="fixed">
+  <origin xyz="-0.052209 -0.000782 -0.071425" rpy="${-pi/2} 0 ${-pi/2}"/>
+  <parent link="camera_1"/>
+  <child link="camera_depth_frame"/>
+</joint>
+
 <link name="pir_1">
   <inertial>
     <origin rpy="0 0 0" xyz="0.0017280643759984352 4.3683251460535644e-14 -1.1102230246251565e-16"/>
@@ -290,6 +328,12 @@
     </geometry>
   </collision>
 </link>
+
+<joint name="imu_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="imu_link"/>
+  <origin xyz="0 0 0.05"/>
+</joint>
 
 <joint name="rwheel_joint" type="continuous">
   <origin rpy="0 0 0" xyz="0.000209 -0.068118 0.027225"/>
